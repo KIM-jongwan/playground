@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -48,7 +49,7 @@ func main(){
 func showArea(shapes ...Shape){
 	for _, s := range shapes{
 		a := s.area()
-		println(a)
+		fmt.Printf(a)
 	}
 }
 
