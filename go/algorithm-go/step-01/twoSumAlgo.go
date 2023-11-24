@@ -11,7 +11,7 @@ import "fmt"
 
 */
 
-	/*
+/*
 	1.단순 이중 for문을 활용하여 해결
 		for(i range nums)
 			for(j range nums)
@@ -20,7 +20,7 @@ import "fmt"
 					nums[i] + nums[j] != target continue;
 
 			시간복잡도: O(n^2)
-	*/
+*/
 func twoSum(nums []int, target int) (bool) {	
 	for i := 0; i < len(nums); i++ {
 		for j := 0; j < len(nums); j++{
