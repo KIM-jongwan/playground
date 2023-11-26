@@ -28,7 +28,26 @@ import (
 */
 func twoSum(nums []int, target int) (bool){
 	sort.Ints(nums);
-	return false;
+
+ var i int = 0
+	var j int = len(nums) -1
+
+	for {
+ 	var sum int = nums[i] + nums[j]
+
+		if(i == j) {
+			return false
+		}
+
+		if (sum == target) {
+			return true
+		}	else if (sum > target) {
+			j = j	-1
+		} else if (sum < target) {
+			i = i +1
+		}
+	}
+
 }
 
 
