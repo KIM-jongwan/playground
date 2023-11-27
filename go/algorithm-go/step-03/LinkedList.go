@@ -39,4 +39,14 @@ func (list *LinkedList) get(idx int) *Node {
 
 func main() {
 
+	var node1 Node
+	var list LinkedList
+
+	node1.Data = "this is node 1"
+	node1.Next = nil
+
+	list.Head = &node1
+
+	list.get(1)
+
 }
