@@ -35,7 +35,7 @@ func (list *LinkedList) get(idx int) *Node {
 		return nil
 	}
 
-	current := list.Head
+	current := list.Node
 	for i := 0; i < idx; i++ {
 		current = current.Next
 	}
@@ -44,20 +44,18 @@ func (list *LinkedList) get(idx int) *Node {
 	return current
 }
 
-func (list *LinkedList) insert(data string) {
-	var newNode Node
-	newNode.Data = data
+func (list *LinkedList) insert(node *Node) {
 
 	current := list.Node
 
 	if current.Next == nil {
-		list.Node = &newNode
+		list.Node = node
 
 	} else {
 		for current.Next == current {
 			current = current.Next
 		}
-		current.Next = &newNode
+		current.Next = node
 	}
 
 }
@@ -67,11 +65,11 @@ func (list *LinkedList) insert_at(data string, idx int) {
 }
 
 func (list *LinkedList) remove() (node Node) {
-
+	return
 }
 
 func (list *LinkedList) remove_at(idx int) (node Node) {
-
+	return
 }
 
 func main() {
@@ -82,8 +80,9 @@ func main() {
 	node1.Data = "this is node 1"
 	node1.Next = nil
 
-	list.Head = &node1
+	list.insert(&node1)
 
-	list.get(1)
+	fmt.Println(list.get(0))
+	fmt.Println(list.Node)
 
 }
