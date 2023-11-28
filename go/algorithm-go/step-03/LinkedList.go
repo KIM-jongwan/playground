@@ -19,8 +19,7 @@ type Node struct {
 	Next *Node  //다음 노드 주소
 }
 type LinkedList struct {
-	Head  *Node //List Head Node 주소
-	Tail  *Node //List Tail Node 주소
+	Node  *Node //List Node 주소
 	Count int   //List Count
 }
 
@@ -43,6 +42,36 @@ func (list *LinkedList) get(idx int) *Node {
 	fmt.Println(current)
 
 	return current
+}
+
+func (list *LinkedList) insert(data string) {
+	var newNode Node
+	newNode.Data = data
+
+	current := list.Node
+
+	if current.Next == nil {
+		list.Node = &newNode
+
+	} else {
+		for current.Next == current {
+			current = current.Next
+		}
+		current.Next = &newNode
+	}
+
+}
+
+func (list *LinkedList) insert_at(data string, idx int) {
+
+}
+
+func (list *LinkedList) remove() (node Node) {
+
+}
+
+func (list *LinkedList) remove_at(idx int) (node Node) {
+
 }
 
 func main() {
