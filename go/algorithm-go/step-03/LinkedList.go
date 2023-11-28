@@ -31,10 +31,18 @@ func (list *LinkedList) get(idx int) *Node {
 		return nil
 	}
 
-	current := list.Tail
-	fmt.Println(current.Next)
+	if list.Count < idx {
+		fmt.Println("Index Out of Bound")
+		return nil
+	}
 
-	return nil
+	current := list.Head
+	for i := 0; i < idx; i++ {
+		current = current.Next
+	}
+	fmt.Println(current)
+
+	return current
 }
 
 func main() {
