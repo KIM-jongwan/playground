@@ -48,7 +48,7 @@ func (list *LinkedList) insert(node *Node) {
 
 	current := list.Node
 
-	if current.Next == nil {
+	if current == nil {
 		list.Node = node
 
 	} else {
