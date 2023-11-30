@@ -9,9 +9,18 @@ public class Step02Application {
     public static void main(String[] args) {
 
         /**
-         * AnnotationConfigApplicationContext
-         * GenericXmlApplicationContext
-         * GenericGroovyApplicationContext
+         * ApplicationContext 상속 관계
+         * | BeanFactory
+         * |- ListableBeanFactory
+         * |-- ApplicationContext
+         * |--- ConfigurableApplicationContext
+         * |---- AbstractApplicationContext
+         * |---- BeanDefinitionRegistry
+         * |----- GenericApplicationContext
+         * |----- AnnotationConfigRegistry
+         * |------ AnnotationConfigApplicationContext (.java configuration)
+         * |------ GenericXmlApplicationContext (XML file configuration)
+         * |------ GenericGroovyApplicationContext (Groovy configuration)
          * */
         AnnotationConfigApplicationContext ctx =
                 new AnnotationConfigApplicationContext(AppContext.class);
