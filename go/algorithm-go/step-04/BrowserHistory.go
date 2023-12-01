@@ -9,9 +9,9 @@ import "fmt"
 */
 
 type Node struct {
-	Head *Node
-	Tail *Node
-	Data string
+	Front *Node
+	Rear  *Node
+	Data  string
 }
 
 /*
@@ -22,42 +22,52 @@ forward(int steps) (string) 을 호출하면 steps수 만큼 앞으로 가낟. .
 */
 type BrowserHistoryInterface interface {
 	BrowseHistory(url string) Node
-	new(url string) Node
 	visit(url string) Node
 	forward(steps int) *Node
 	back(steps int) *Node
 }
 
-func BrowseHistory(url string) Node {
+func BrowseHistory(url string) *Node {
 	var node Node
-	node.Head = &node
-	node.Tail = &node
+	node.Front = &node
+	node.Rear = &node
 	node.Data = url
 
-	return node
+	return &node
 }
 
-func (node *Node) new(url string) Node {
+func (node *Node) visit(url string) *Node {
+	var newNode Node
 
+	newNode.Front = node
+	newNode.Rear = &newNode
+	newNode.Data = url
+	node.Rear = &newNode
+
+	return &newNode
 }
 
-func (node *Node) visit(url string) Node {
-
-}
-
+/*
 func (node *Node) forward(steps int) Node {
 
 }
+*/
 
+/*
 func (node *Node) back(steps int) Node {
 
 }
-
+*/
 func main() {
 
-	node := BrowseHistory("https://www.google.com")
+	var node *Node = BrowseHistory("https://www.google.com")
 
-	fmt.Println(node.Head)
-	fmt.Println(node.Tail)
-	fmt.Println(node.Data)
+	fmt.Println(node)
+
+	node = node.visit("https://www.naver.com")
+
+	fmt.Println(node)
+
+	fmt.Println(node.Front)
+
 }
