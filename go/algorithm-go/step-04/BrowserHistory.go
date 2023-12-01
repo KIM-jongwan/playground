@@ -61,13 +61,11 @@ func (node *Node) back(steps int) Node {
 func main() {
 
 	var node *Node = BrowseHistory("https://www.google.com")
-
-	fmt.Println(node)
-
 	node = node.visit("https://www.naver.com")
+	node = node.visit("https://www.changbi.com")
 
 	fmt.Println(node)
-
 	fmt.Println(node.Front)
+	fmt.Println(node.Front.Front)
 
 }
