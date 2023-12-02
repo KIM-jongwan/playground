@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 /*
  인터넷 방문 기록과 동일한 동작을 하는 BrowserHistory class를 구현
 구현할 브라우저는 homepage에서 시작하고, url을 입력받아 이동 할 수 있다.
@@ -14,7 +12,7 @@ type Node struct {
 	Data  string
 }
 
-type BrowserHistory struct {
+type BrowserHistoryInfo struct {
 	Head *Node
 	CurrentNode *Node
 }
@@ -26,29 +24,35 @@ back(int steps) (string) 을 호출하면 steps수 만큼 뒤로가기한다. ..
 forward(int steps) (string) 을 호출하면 steps수 만큼 앞으로 가낟. ...
 */
 type BrowserHistoryInterface interface {
-	BrowseHistory(url string) Node
+	BrowseHistory(url string)
 	visit(url string) Node
 	forward(steps int) *Node
 	back(steps int) *Node
 }
 
-func BrowseHistory(url string) *Node {
-	var node Node
-	node.Front = &node
-	node.Rear = &node
-	node.Data = url
-
-	return &node
-}
-
-func (node *Node) visit(url string) *Node {
+func BrowserHistory(url string) (BrowserHistoryInfo) {
+	var browserHistory BrowserHistoryInfo
 	var newNode Node
 
-	newNode.Front = node
-	newNode.Rear = &newNode
+	newNode.Front = &newNode
+ newNode.Rear = &newNode
 	newNode.Data = url
-	node.Rear = &newNode
 
+	browserHistory.Head = &newNode
+	browserHistory.CurrentNode = &newNode
+
+	return browserHistory
+}
+
+func (browserHistory *BrowserHistoryInfo) visit(url string) *Node {
+	var newNode Node
+
+	newNode.Front = browserHistory.CurrentNode
+ newNode.Rear = &newNode
+	newNode.Data = url
+
+	browserHistory.CurrentNode = &newNode
+	
 	return &newNode
 }
 
@@ -65,12 +69,5 @@ func (node *Node) back(steps int) Node {
 */
 func main() {
 
-	var node *Node = BrowseHistory("https://www.google.com")
-	node = node.visit("https://www.naver.com")
-	node = node.visit("https://www.changbi.com")
-
-	fmt.Println(node)
-	fmt.Println(node.Front)
-	fmt.Println(node.Front.Front)
 
 }
