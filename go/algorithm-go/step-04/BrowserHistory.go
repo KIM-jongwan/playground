@@ -14,6 +14,11 @@ type Node struct {
 	Data  string
 }
 
+type BrowserHistory struct {
+	Head *Node
+	CurrentNode *Node
+}
+
 /*
 BrowserHistory(homepage string) 호출하면 브라우저는 homepage에서 시작
 void visit(url string)을 호출하면 현재 page 앞에 있는 페이지 기록은 삭제되고 url로 방문
