@@ -58,4 +58,7 @@ public class Member {
     public String getPassword() {
         return password;
     }
+
+    public void changePassword(String oldPwd, String newPwd) {
+    }
 }

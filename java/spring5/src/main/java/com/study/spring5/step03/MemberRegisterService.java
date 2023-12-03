@@ -27,7 +27,7 @@ public class MemberRegisterService {
     }
 
 
-    public void regist(RegisterRequest req){
+    public Long regist(RegisterRequest req){
         Member member = memberDao.selectByEmail(req.getEmail());
 
         if(member != null){
@@ -37,6 +37,7 @@ public class MemberRegisterService {
 
         Member newMember = new Member(req.getEmail(), req.getName(),req.getPassword());
         memberDao.insert(newMember);
+        return newMember.getId();
 
     }
 
