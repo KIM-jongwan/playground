@@ -7,13 +7,12 @@ package main
 */
 
 type Node struct {
-	Front *Node
-	Rear  *Node
-	Data  string
+	Next *Node
+	Data string
 }
 
 type BrowserHistoryInfo struct {
-	Head *Node
+	Head        *Node
 	CurrentNode *Node
 }
 
@@ -21,23 +20,21 @@ type BrowserHistoryInfo struct {
 BrowserHistory(homepage string) 호출하면 브라우저는 homepage에서 시작
 void visit(url string)을 호출하면 현재 page 앞에 있는 페이지 기록은 삭제되고 url로 방문
 back(int steps) (string) 을 호출하면 steps수 만큼 뒤로가기한다. ....
-forward(int steps) (string) 을 호출하면 steps수 만큼 앞으로 가낟. ...
+forward(int steps) (string) 을 호출하면 steps수 만큼 앞으로 간다. ...
 */
 type BrowserHistoryInterface interface {
-	BrowseHistory(url string)
+	BrowseHistory(url string) BrowserHistoryInfo
 	visit(url string) Node
 	forward(steps int) *Node
 	back(steps int) *Node
 }
 
-func BrowserHistory(url string) (BrowserHistoryInfo) {
-	var browserHistory BrowserHistoryInfo
-	var newNode Node
-
-	newNode.Front = &newNode
- newNode.Rear = &newNode
+func BrowserHistory(url string) BrowserHistoryInfo {
+	newNode := Node{}
+	newNode.Next = &newNode
 	newNode.Data = url
 
+	browserHistory := BrowserHistoryInfo{}
 	browserHistory.Head = &newNode
 	browserHistory.CurrentNode = &newNode
 
@@ -45,22 +42,26 @@ func BrowserHistory(url string) (BrowserHistoryInfo) {
 }
 
 func (browserHistory *BrowserHistoryInfo) visit(url string) *Node {
-	var newNode Node
-
-	newNode.Front = browserHistory.CurrentNode
- newNode.Rear = &newNode
+	newNode := Node{}
+	newNode.Next = &newNode
 	newNode.Data = url
 
-	browserHistory.CurrentNode = &newNode
-	
+	browserHistory.CurrentNode.Next = &newNode
+
 	return &newNode
 }
 
-/*
-func (node *Node) forward(steps int) Node {
+func (browserHistory *BrowserHistoryInfo) forward(steps int) Node {
 
+	currnet := browserHistory.CurrentNode
+
+	for steps > 0 {
+		currnet = currnet.Next
+		steps--
+	}
+
+	return *currnet
 }
-*/
 
 /*
 func (node *Node) back(steps int) Node {
@@ -68,6 +69,5 @@ func (node *Node) back(steps int) Node {
 }
 */
 func main() {
-
 
 }
