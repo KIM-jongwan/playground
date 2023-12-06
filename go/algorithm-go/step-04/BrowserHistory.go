@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 /*
  인터넷 방문 기록과 동일한 동작을 하는 BrowserHistory class를 구현
 구현할 브라우저는 homepage에서 시작하고, url을 입력받아 이동 할 수 있다.
@@ -7,18 +9,14 @@ package main
 */
 
 type Node struct {
-	Next *Node
-	Data string
+	Front *Node
+	Rear  *Node
+	Data  string
 }
 
 type BrowserHistoryInfo struct {
 	Head        *Node
 	CurrentNode *Node
-}
-
-type BrowserHistory struct {
-	Head *Node
-	Tail *Node
 }
 
 /*
@@ -34,9 +32,11 @@ type BrowserHistoryInterface interface {
 	back(steps int) *Node
 }
 
+/*BrowserHistory 초기화*/
 func BrowserHistory(url string) BrowserHistoryInfo {
 	newNode := Node{}
-	newNode.Next = &newNode
+	newNode.Front = &newNode
+	newNode.Rear = &newNode
 	newNode.Data = url
 
 	browserHistory := BrowserHistoryInfo{}
@@ -48,10 +48,11 @@ func BrowserHistory(url string) BrowserHistoryInfo {
 
 func (browserHistory *BrowserHistoryInfo) visit(url string) *Node {
 	newNode := Node{}
-	newNode.Next = &newNode
+	newNode.Front = browserHistory.CurrentNode
+	newNode.Rear = &newNode
 	newNode.Data = url
 
-	browserHistory.CurrentNode.Next = &newNode
+	browserHistory.CurrentNode = &newNode
 
 	return &newNode
 }
@@ -61,18 +62,41 @@ func (browserHistory *BrowserHistoryInfo) forward(steps int) Node {
 	currnet := browserHistory.CurrentNode
 
 	for steps > 0 {
-		currnet = currnet.Next
-		steps--
+		if currnet.Rear != nil {
+			currnet = currnet.Rear
+			steps--
+		} else {
+			break
+		}
 	}
 
 	return *currnet
 }
 
-/*
-func (node *Node) back(steps int) Node {
+func (browserHistory *BrowserHistoryInfo) back(steps int) Node {
 
+	current := browserHistory.CurrentNode
+
+	for steps > 0 {
+		if current.Front != browserHistory.Head {
+			current = current.Front
+			steps--
+		} else {
+			current = browserHistory.Head
+			break
+		}
+	}
+	return *current
 }
-*/
+
 func main() {
+
+	browserHistory := BrowserHistory("https://www.google.com")
+	fmt.Println(browserHistory.CurrentNode.Data)
+	fmt.Println(browserHistory.visit("https://www.naver.com"))
+	fmt.Println(browserHistory.visit("https://www.test.com"))
+	fmt.Println(browserHistory.back(2).Data)
+	fmt.Println(browserHistory.forward(2).Data)
+	fmt.Println(browserHistory.back(10).Data)
 
 }
