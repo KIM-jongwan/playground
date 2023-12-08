@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 /*
 	Linked List로
 	Queue 구현
@@ -11,26 +13,67 @@ type Node struct {
 	Data int
 }
 
-type Queue interface{
-	initQueue()
+type Queue struct {
+	Head *Node
+	Tail *Node
+}
+
+type QueueInterface interface{
+	initQueue() (Queue)
 	append(data int)
 	pop() int
 }
 
-func initQueue(){
-
+func initQueue() (Queue){
+	queue := Queue{}
+	return queue
 }
 
-func (node *Node) append(data int){
+func (queue *Queue) append(data int){
+	newNode := Node{}
+	newNode.Data = data
 
+	if(queue.Head == nil){
+		queue.Head = &newNode
+		queue.Tail = &newNode
+	}else{
+		newNode.Rear = queue.Head
+		queue.Head.Front = &newNode
+		queue.Head = &newNode
+	}	
 }
 
-func pop() (int){
+func (queue *Queue) pop() (int){
 
-	return 0;
+	head := queue.Head
+
+	queue.Head = head.Rear
+	head.Front = head
+
+	return head.Data;
 }
 
 
 func main() {
+
+	queue := initQueue()
+	queue.append(1)
+	queue.append(2)
+	queue.append(3)
+
+	fmt.Println(queue.pop())
+	fmt.Println(queue.pop())
+	fmt.Println(queue.pop())
+
+	queue.append(5)
+	queue.append(1)
+	queue.append(2)
+
+	fmt.Println(queue.pop())
+	fmt.Println(queue.pop())
+	fmt.Println(queue.pop())
+
+	
+
 
 }
