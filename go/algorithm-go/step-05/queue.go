@@ -57,13 +57,13 @@ func (queue *Queue) pop() (int){
 func main() {
 
 	queue := initQueue()
-	queue.append(1)
-	queue.append(2)
-	queue.append(3)
+	(&queue).append(1)
+	(&queue).append(2)
+	(&queue).append(3)
 
-	fmt.Println(queue.pop())
-	fmt.Println(queue.pop())
-	fmt.Println(queue.pop())
+	fmt.Println((&queue).pop())
+	fmt.Println((&queue).pop())
+	fmt.Println((&queue).pop())
 
 	queue.append(5)
 	queue.append(1)
