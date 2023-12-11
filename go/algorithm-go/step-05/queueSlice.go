@@ -7,32 +7,52 @@ import "fmt"
 	사용하여 queue 구현
 */
 
-type Queue []interface{
+type Queue []interface {
 }
 
-func (q *Queue) IsEmpty() bool {
-	return len(*q) == 0
+func (q *Queue) Enqueue(data interface{}) {
+	*q = append(*q, data)
 }
 
-func (q *Queue) Enqueue(data interface{}){
-	*q = append(*q, data);
-	fmt.Println("append queue")
+func (q *Queue) Dequeue() interface{} {
+
+	if len(*q) == 0 {
+		fmt.Println("empty Queue")
+		return nil
+	}
+
+	data := (*q)[0]
+	*q = (*q)[1:]
+
+	return data
+
 }
 
+func (q *Queue) printElements() {
+	if len(*q) == 0 {
+		fmt.Println("empty queue")
+		return
+	}
 
+	for i := 0; i < len(*q); i++ {
+		fmt.Println((*q)[i])
+	}
 
-func main()  {
+}
 
-	var a int = 3;
+func main() {
 
-	q := Queue{}
-	pq := &q
+	queue := Queue{}
 
-	q.Enqueue(1)
+	fmt.Println(queue.Dequeue()) //empty
 
-	fmt.Println(&a)
-	fmt.Println(q)
-	fmt.Println(&q)
-	fmt.Println(pq)
-	fmt.Println(*pq)
+	queue.Enqueue(1)
+	queue.Enqueue(2)
+	queue.Enqueue(3)
+	queue.printElements()
+	queue.Dequeue()
+	queue.Dequeue()
+	queue.Dequeue()
+	queue.Dequeue()
+	queue.printElements()
 }
