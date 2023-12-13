@@ -26,21 +26,29 @@ func bracketValidator(input string) bool {
 	var charArray []byte = []byte(input)
 	var stack []byte
 	for i := 0; i < len(input); i++ {
-		fmt.Println(charArray[i])
 		if charArray[i] == byte('(') {
 			stack = append(stack, byte(')'))
+		} else if charArray[i] == byte(')') {
+
+			if len(stack) > 0 {
+				stack = stack[1:]
+			} else {
+				fmt.Println(stack)
+				return false
+			}
 		}
 	}
-
-	fmt.Println(stack)
-
 	return true
 }
 
 func main() {
 
 	param1 := "((())))))"
+	param2 := "()()()"
+	param3 := "((()))"
 
-	bracketValidator(param1)
+	fmt.Println(bracketValidator(param1))
+	fmt.Println(bracketValidator(param2))
+	fmt.Println(bracketValidator(param3))
 
 }
