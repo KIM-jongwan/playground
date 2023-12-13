@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 /*
 	'[(){}]' 와 같은 문자열이 주어졌을 때, 괄호가 유효한지 판단
 
@@ -20,9 +22,54 @@ package main
 */
 
 func bracketValidator(input string) bool {
+	var stack []byte
+	byteArray := []byte(input)
 
+	for i := 0; i < len(byteArray); i++ {
+		if byteArray[i] == byte('(') {
+			stack = append(stack, byte(')'))
+		} else if byteArray[i] == byte('{') {
+			stack = append(stack, byte('}'))
+		} else if byteArray[i] == byte('[') {
+			stack = append(stack, byte(']'))
+		} else if byteArray[i] == byte(')') {
+			if stack[len(stack)-1] == byte(')') {
+				stack = stack[:len(stack)-1]
+				continue
+			} else {
+				return false
+			}
+		} else if byteArray[i] == byte('}') {
+			if stack[len(stack)-1] == byte('}') {
+				stack = stack[:len(stack)-1]
+				continue
+			} else {
+				return false
+			}
+		} else if byteArray[i] == byte(']') {
+			if stack[len(stack)-1] == byte(']') {
+				stack = stack[:len(stack)-1]
+				continue
+			} else {
+				return false
+			}
+		} else {
+			fmt.Println("Wrong input")
+			return false
+		}
+
+	}
+	return true
 }
 
 func main() {
+
+	param1 := "(())"
+	param2 := "(({{[]}}))"
+	param3 := "[(({)})]"
+
+	fmt.Println(bracketValidator(param1))
+	fmt.Println(bracketValidator(param2))
+	fmt.Println(bracketValidator(param3))
 
 }
