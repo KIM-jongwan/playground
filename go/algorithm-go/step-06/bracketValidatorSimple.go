@@ -31,7 +31,7 @@ func bracketValidator(input string) bool {
 		} else if charArray[i] == byte(')') {
 
 			if len(stack) > 0 {
-				stack = stack[1:]
+				stack = stack[:(len(stack) - 1)]
 			} else {
 				fmt.Println(stack)
 				return false
